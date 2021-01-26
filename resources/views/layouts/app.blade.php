@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <link rel="stylesheet" href="{{asset('css/toastr.min.css')}}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
@@ -66,5 +67,13 @@
 {{--  @stack('modals')
 
   @livewireScripts--}}
+
+<script src="{{asset('js/toastr.min.js')}}"></script>
+<script>
+
+    @if(\Illuminate\Support\Facades\Session::has('success'))
+        toastr.success('{{\Illuminate\Support\Facades\Session::get('success')}}')
+        @endif
+</script>
 </body>
 </html>
