@@ -15,8 +15,11 @@ use App\Http\Controllers\TagsController;
 |
 */
 
+Route::get('test',function (){
+   return \App\Models\Post::find(5)->category;
+
+});
 Route::get('/', function () {
-    toast('Your Post as been submited!','success');
     return view('welcome');
 });
 

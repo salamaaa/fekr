@@ -36,6 +36,16 @@
                         @endforeach
                     </select>
                 </div>
+                <label for="check">Select Tag(s)</label>
+                <div class="form-check" id="check">
+                    @foreach($tags as $tag)
+                        <input class="form-check-input" name="tags[]" type="checkbox" value="{{$tag->id}}" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            {{$tag->tag}}
+                        </label>
+                        <br>
+                    @endforeach
+                </div>
 
                 <div class="form-group">
                     <div class="text-center">

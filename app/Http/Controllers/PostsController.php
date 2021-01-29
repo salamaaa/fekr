@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -28,12 +29,13 @@ class PostsController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
         if($categories->count() == 0){
             return redirect()->back()->with('toast_info',"You don't have any categories");
         }
 
-        return view('admin.posts.create',['categories'=>$categories]);
+        return view('admin.posts.create',['categories'=>$categories,'tags'=>$tags]);
     }
 
     /**
@@ -50,7 +52,8 @@ class PostsController extends Controller
             'title'=>['required','max:100','string'],
             'post_content'=>['required','max:255'],
             'featured'=>['required','image'],
-            'category_id'=>['required']
+            'category_id'=>['required'],
+            'tags'=>['required']
         ]);
 
         $featured = $request->featured;
@@ -64,6 +67,8 @@ class PostsController extends Controller
         $post->featured = 'uploads/posts/'.$new_featured;
         $post->slug = Str::slug($request->title,'-');
         $post->save();
+
+        $post->tags()->attach($request->tags);
 
         return redirect()->route('posts.index')->with('toast_success','Post Successfully Created');
     }
