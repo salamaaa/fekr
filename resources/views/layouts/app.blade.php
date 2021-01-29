@@ -12,7 +12,8 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <link rel="stylesheet" href="{{asset('css/toastr.min.css')}}">
+{{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" />--}}
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
@@ -38,17 +39,22 @@
             <div class="col-lg-4">
                 <ul class="list-group">
                     <li class="list-group-item">
+                        <a href="{{route('posts.index')}}">Posts</a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="{{route('posts.create')}}">Create Post</a>
                     </li>
                     <li class="list-group-item">
-                        <a href="{{route('categories.create')}}">Create Category</a>
+                        <a href="{{route('posts.trashed')}}">Trashed Posts</a>
                     </li>
                     <li class="list-group-item">
                         <a href="{{route('categories.index')}}">Categories</a>
                     </li>
                     <li class="list-group-item">
-                        <a href="/dashboard">Posts</a>
+                        <a href="{{route('categories.create')}}">Create Category</a>
                     </li>
+
+
 
                 </ul>
             </div>
@@ -68,12 +74,14 @@
 
   @livewireScripts--}}
 
-<script src="{{asset('js/toastr.min.js')}}"></script>
-<script>
+{{--
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
+--}}
 
-    @if(\Illuminate\Support\Facades\Session::has('success'))
-        toastr.success('{{\Illuminate\Support\Facades\Session::get('success')}}')
-        @endif
-</script>
+    {{--@if(\Illuminate\Support\Facades\Session::has('success'))
+        <script>  toastr.success('{!!\Illuminate\Support\Facades\Session::get('success')!!}'); </script>
+        @endif--}}
+
 </body>
 </html>

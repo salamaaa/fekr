@@ -7,25 +7,27 @@
             {{session('success_message')}}
         </div>
     @endif
-    @if($categories->count() > 0)
-        <h1 class="text-gray-500 text-3xl">Categories</h1>
+    @if($posts->count() > 0)
+        <h1 class="text-gray-500 text-3xl">Posts</h1>
         <table class="table table-hover">
             <thead>
-            <th>Name</th>
+            <th>Image</th>
+            <th>Title</th>
             </thead>
             <tbody>
-            @foreach($categories as $category)
+            @foreach($posts as $post)
                 <tr>
-                    <td>{{$category->name}}</td>
+                    <td><img src="{{$post->featured}}" alt="{{$post->title}}" width="50px" height="50px"></td>
+                    <td>{{$post->title}}</td>
                     <td>
                         <a class="btn btn-xs btn-info"
-                           href="{{route('categories.edit',[$category->id])}}">
+                           href="{{route('posts.edit',[$post->id])}}">
                             Edit
                         </a>
                     </td>
                     <td><a class="btn btn-xs btn-danger"
-                           href="{{route('categories.destroy',[$category->id])}}">
-                            Delete
+                           href="{{route('posts.destroy',[$post->id])}}">
+                            Trash
                         </a>
                     </td>
                 </tr>
@@ -33,7 +35,9 @@
             </tbody>
         </table>
     @else
-        <h1 class="text-gray-500 text-center text-3xl">No Categories</h1>
+        <h1 class="text-gray-500 text-center text-3xl">No Posts</h1>
     @endif
+
+
     @include('sweetalert::alert')
 @endsection

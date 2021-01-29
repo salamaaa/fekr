@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\CategoriesController;
+use RealRashid\SweetAlert\Facades\Alert;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,7 @@ use App\Http\Controllers\CategoriesController;
 */
 
 Route::get('/', function () {
+    toast('Your Post as been submited!','success');
     return view('welcome');
 });
 
@@ -24,10 +26,28 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::group(['prefix'=>'admin'],function (){
+
+    //admin posts routes
     Route::get('posts/create',[PostsController::class,'create'])
         ->name('posts.create');
     Route::post('posts/store',[PostsController::class,'store'])
         ->name('posts.store');
+    Route::get('posts',[PostsController::class,'index'])
+        ->name('posts.index');
+    Route::get('posts/{id}/edit',[PostsController::class,'edit'])
+        ->name('posts.edit');
+    Route::post('posts/{id}/update',[PostsController::class,'update'])
+        ->name('posts.update');
+    Route::get('posts/{id}/destroy',[PostsController::class,'destroy'])
+        ->name('posts.destroy');
+    Route::get('posts/trashed',[PostsController::class,'trashed'])
+        ->name('posts.trashed');
+    Route::get('posts/trashed/{id}/restore',[PostsController::class,'restore'])
+        ->name('posts.restore');
+    Route::get('posts/trashed/{id}/permanently/delete',[PostsController::class,'perDelete'])
+        ->name('posts.perDelete');
+
+    //******* admin categories routes
     Route::get('categories/create',[CategoriesController::class,'create'])
         ->name('categories.create');
     Route::post('categories/store',[CategoriesController::class,'store'])

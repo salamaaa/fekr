@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoriesController extends Controller
 {
@@ -45,9 +45,7 @@ class CategoriesController extends Controller
         $category->name = $request->name;
         $category->save();
 
-        Session::flash('success','Successfully created Category');
-
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.index')->with('toast_success','Category was created!');
 
     }
 
@@ -90,9 +88,7 @@ class CategoriesController extends Controller
         $category->name = $request->name;
         $category->save();
 
-        Session::flash('success','Successfully Updating Category');
-
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.index')->with('toast_success','Category successfully updated');
     }
 
     /**
@@ -106,8 +102,6 @@ class CategoriesController extends Controller
         $category = Category::findOrFail($id);
         $category->delete();
 
-        Session::flash('success','Successfully Deleted Category');
-
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.index')->with('toast_success','Category successfully deleted!');
     }
 }

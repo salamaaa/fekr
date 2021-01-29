@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostsController extends Controller
 {
@@ -14,7 +16,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::all();
+        return view('admin.posts.index',['posts'=>$posts]);
     }
 
     /**
@@ -24,7 +27,13 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        $categories = Category::all();
+
+        if($categories->count() == 0){
+            return redirect()->back()->with('toast_info',"You don't have any categories");
+        }
+
+        return view('admin.posts.create',['categories'=>$categories]);
     }
 
     /**
@@ -40,15 +49,23 @@ class PostsController extends Controller
         $this->validate($request,[
             'title'=>['required','max:100','string'],
             'post_content'=>['required','max:255'],
-            'featured_img'=>['required','image']
+            'featured'=>['required','image'],
+            'category_id'=>['required']
         ]);
+
+        $featured = $request->featured;
+        $new_featured = time().$featured->getClientOriginalName();
+        $featured->move('uploads/posts/',$new_featured);
+
 
         $post->title = $request->title;
         $post->content = $request->post_content;
-        $post->category_id = 1;
+        $post->category_id = $request->category_id;
+        $post->featured = 'uploads/posts/'.$new_featured;
+        $post->slug = Str::slug($request->title,'-');
         $post->save();
 
-        return redirect()->back();
+        return redirect()->route('posts.index')->with('toast_success','Post Successfully Created');
     }
 
     /**
@@ -65,12 +82,14 @@ class PostsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $categories = Category::all();
+        return view('admin.posts.edit',['post'=>$post,'categories'=>$categories]);
     }
 
     /**
@@ -82,7 +101,29 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'title'=>['required','max:100','string'],
+            'post_content'=>['required','max:255'],
+            'featured'=>['required','image'],
+            'category_id'=>['required']
+        ]);
+
+        $post = Post::findOrFail($id);
+
+        $featured1 = $request->featured;
+        $new_featured = time().$featured1->getClientOriginalName();
+        $featured1->move('uploads/posts/',$new_featured);
+
+
+        $post->title = $request->title;
+        $post->content = $request->post_content;
+        $post->category_id = $request->category_id;
+        $post->featured = 'uploads/posts/'.$new_featured;
+        $post->slug = Str::slug($request->title,'-');
+        $post->save();
+
+        return redirect()->route('posts.index')->with('toast_success','Post Successfully Updated');
+
     }
 
     /**
@@ -93,6 +134,27 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        $post->delete();
+
+        return redirect()->route('posts.index')->with('toast_success','Post just trashed!');
     }
+
+    public function trashed(){
+        $posts = Post::onlyTrashed()->get();
+        return view('admin.posts.trashed',['posts'=>$posts]);
+    }
+
+    public function restore($id){
+        $post = Post::withTrashed()->where('id',$id)->first();
+        $post->restore();
+        return redirect()->route('posts.index')->with('toast_success','Post successfully restored!');
+    }
+
+    public function perDelete($id){
+        $post = Post::withTrashed()->where('id',$id)->first();
+        $post->forceDelete();
+        return redirect()->route('posts.trashed')->with('toast_success','Post permanently deleted');
+    }
+
 }
