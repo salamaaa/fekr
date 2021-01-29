@@ -5,7 +5,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h1 class="text-gray-500 text-3xl">
-                Edit {{$post->title}} Post
+                Edit "{{$post->title}}" Post
             </h1>
         </div>
         <div class="panel-body">

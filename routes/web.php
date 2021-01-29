@@ -3,8 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\CategoriesController;
-use RealRashid\SweetAlert\Facades\Alert;
-
+use App\Http\Controllers\TagsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -60,4 +59,18 @@ Route::group(['prefix'=>'admin'],function (){
         ->name('categories.update');
     Route::get('categories/{id}/destroy',[CategoriesController::class,'destroy'])
         ->name('categories.destroy');
+
+    //******* admin tags routes
+    Route::get('tags',[TagsController::class,'index'])
+        ->name('tags.index');
+    Route::get('tags/create',[TagsController::class,'create'])
+        ->name('tags.create');
+    Route::post('tags/store',[TagsController::class,'store'])
+        ->name('tags.store');
+    Route::get('tags/{id}/edit',[TagsController::class,'edit'])
+        ->name('tags.edit');
+    Route::post('tags/{id}/update',[TagsController::class,'update'])
+        ->name('tags.update');
+    Route::get('tags/{id}/destroy',[TagsController::class,'destroy'])
+        ->name('tags.destroy');
 });
