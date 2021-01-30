@@ -38,12 +38,15 @@
         <div class="row">
             <div class="col-lg-4">
                 <ul class="list-group">
-                    <li class="list-group-item">
-                        <a href="{{route('users.index')}}">Users</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="{{route('users.create')}}">Create User</a>
-                    </li>
+
+                    @if(\Illuminate\Support\Facades\Auth::user()->admin)
+                        <li class="list-group-item">
+                            <a href="{{route('users.index')}}">Users</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{route('users.create')}}">Create User</a>
+                        </li>
+                    @endif
                     <li class="list-group-item">
                         <a href="{{route('posts.index')}}">Posts</a>
                     </li>
