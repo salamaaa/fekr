@@ -39,6 +39,12 @@
             <div class="col-lg-4">
                 <ul class="list-group">
                     <li class="list-group-item">
+                        <a href="{{route('users.index')}}">Users</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="{{route('users.create')}}">Create User</a>
+                    </li>
+                    <li class="list-group-item">
                         <a href="{{route('posts.index')}}">Posts</a>
                     </li>
                     <li class="list-group-item">

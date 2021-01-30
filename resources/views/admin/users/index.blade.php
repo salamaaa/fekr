@@ -20,15 +20,15 @@
                     <td><img src="{{asset($user->profile->avatar)}}" alt="{{$user->name}}" width="50px" height="50px"></td>
                     <td>{{$user->name}}</td>
                     <td>
-                        <a class="btn btn-xs btn-info"
-                           href="{{route('users.edit',[$user->id])}}">
+                        {{--<a class="btn btn-xs btn-info"
+                           href="{{route('users.edit',[$user->id])}}">--}}
                             Permissions
-                        </a>
+{{--                        </a>--}}
                     </td>
-                    <td><a class="btn btn-xs btn-danger"
-                           href="{{route('users.destroy',[$user->id])}}">
+                    <td>{{--<a class="btn btn-xs btn-danger"
+                           href="{{route('users.destroy',[$user->id])}}">--}}
                             Delete
-                        </a>
+{{--                        </a>--}}
                     </td>
                 </tr>
             @endforeach
