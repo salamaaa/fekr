@@ -5,48 +5,37 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h1 class="text-gray-500 text-3xl">
-                Create New Post
+                Create New User
             </h1>
         </div>
         <div class="panel-body">
-            <form action="/admin/posts/store" method="post" enctype="multipart/form-data">
+            <form action="/admin/users/store" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <label for="title">Title</label>
-                    <input type="text" name="title" id="title" class="form-control">
-                    <span style="color: red">@error('title') {{$message}} @enderror</span><br>
-                </div>
-
-
-                <div class="form-group">
-                    <label for="featured_img">Featured Image</label>
-                    <input type="file" name="featured" id="featured_img" class="form-control">
-                    <span style="color: red">@error('featured') {{$message}} @enderror</span><br>
+                    <label for="name"> Username </label>
+                    <input type="text" name="name" id="name" class="form-control">
+                    <span style="color: red">@error('name') {{$message}} @enderror</span><br>
                 </div>
                 <div class="form-group">
-                    <label for="content">Content</label>
-                    <textarea name="post_content" id="content" cols="5" rows="5" class="form-control"></textarea>
-                    <span style="color: red">@error('post_content') {{$message}} @enderror</span>
+                    <label for="email"> Email </label>
+                    <input type="email" name="email" id="email" class="form-control">
+                    <span style="color: red">@error('email') {{$message}} @enderror</span><br>
                 </div>
                 <div class="form-group">
-                    <label for="category">Select a Category</label>
-                    <select name="category_id" id="category" class="form-control">
-                        @foreach($categories as $category)
-                            <option value="{{$category->id}}">{{$category->name}}</option>
-                        @endforeach
-                    </select>
+                    <label for="password"> Password </label>
+                    <input type="password" name="password" id="password" class="form-control">
+                    <span style="color: red">@error('password') {{$message}} @enderror</span><br>
                 </div>
-                <label for="check">Select Tag(s)</label>
-                <div class="form-check" id="check">
-                    @foreach($tags as $tag)
-                        <input class="form-check-input" name="tags[]" type="checkbox" value="{{$tag->id}}" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            {{$tag->tag}}
-                        </label>
-                        <br>
-                    @endforeach
+                <div class="form-group">
+                    <label for="avatar">Featured Image</label>
+                    <input type="file" name="avatar" id="avatar" class="form-control">
+                    <span style="color: red">@error('avatar') {{$message}} @enderror</span><br>
                 </div>
-
+                <div class="form-group">
+                    <label for="about">About</label>
+                    <textarea name="about" id="about" cols="5" rows="5" class="form-control"></textarea>
+                    <span style="color: red">@error('about') {{$message}} @enderror</span>
+                </div>
                 <div class="form-group">
                     <div class="text-center">
                         <button class="btn btn-primary" type="submit">Create</button>
