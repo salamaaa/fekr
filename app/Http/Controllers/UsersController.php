@@ -19,7 +19,7 @@ class UsersController extends Controller
         $users = User::all();
         $profiles = Profile::all();
 
-        return view('admin.users.index', ['users' => $users,'profiles'=>$profiles]);
+        return view('admin.users.index', ['users' => $users, 'profiles' => $profiles]);
     }
 
     /**
@@ -41,7 +41,7 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => ['bail', 'required', 'max:255', 'unique:users','string'],
+            'name' => ['bail', 'required', 'max:255', 'unique:users', 'string'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8',
                 'regex:/[a-z]/',
@@ -51,18 +51,18 @@ class UsersController extends Controller
             ],
         ]);
         $user = User::create([
-           'name'=>$request->name,
-           'email'=>$request->email,
-           'password'=>bcrypt($request->password)
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password)
         ]);
 
         $profile = Profile::create([
-            'user_id'=>$user->id,
-            'avatar'=> 'uploads/avatars/1.jpg'
+            'user_id' => $user->id,
+            'avatar' => 'uploads/avatars/1.jpg'
         ]);
 
 
-        return redirect()->route('users.index')->with('toast_success','User successfully created');
+        return redirect()->route('users.index')->with('toast_success', 'User successfully created');
     }
 
     /**
@@ -109,4 +109,21 @@ class UsersController extends Controller
     {
         //
     }
+
+    public function makeAdminOrNot($id)
+    {
+        $user = User::find($id);
+        if ($user->admin) {
+            $user->admin = false;
+            $user->save();
+            return redirect()->route('users.index')
+                ->with('toast_success', "User's Privileges Removed");
+        } else {
+            $user->admin = true;
+            $user->save();
+            return redirect()->route('users.index')
+                ->with('toast_success', 'User set to Admin');
+        }
+    }
+
 }

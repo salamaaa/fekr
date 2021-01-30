@@ -17,18 +17,26 @@
             <tbody>
             @foreach($users as $user)
                 <tr>
-                    <td><img src="{{asset('uploads/avatars/1.png')}}" alt="{{$user->name}}" width="50px" height="50px"></td>
+                    <td><img src="{{asset('uploads/avatars/1.png')}}" alt="{{$user->name}}" width="50px" height="50px">
+                    </td>
                     <td>{{$user->name}}</td>
                     <td>
-                        {{--<a class="btn btn-xs btn-info"
-                           href="{{route('users.edit',[$user->id])}}">--}}
-                            Permissions
-{{--                        </a>--}}
+                        @if($user->admin)
+                            <a class="btn btn-xs btn-danger"
+                               href="{{route('users.make.admin',[$user->id])}}">
+                                Remove Permissions
+                            </a>
+                        @else
+                            <a class="btn btn-xs btn-success"
+                               href="{{route('users.make.admin',[$user->id])}}">
+                                Make Admin
+                            </a>
+                        @endif
                     </td>
                     <td>{{--<a class="btn btn-xs btn-danger"
                            href="{{route('users.destroy',[$user->id])}}">--}}
-                            Delete
-{{--                        </a>--}}
+                        Delete
+                        {{--                        </a>--}}
                     </td>
                 </tr>
             @endforeach

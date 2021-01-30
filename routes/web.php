@@ -91,4 +91,7 @@ Route::group(['prefix'=>'admin'],function (){
         ->name('users.update');
     Route::get('users/{id}/destroy',[UsersController::class,'destroy'])
         ->name('users.destroy');
+    Route::get('users/admin/{id}',[UsersController::class,'makeAdminOrNot'])
+        ->name('users.make.admin');
+
 });
