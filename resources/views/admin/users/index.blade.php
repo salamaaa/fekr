@@ -17,17 +17,17 @@
             <tbody>
             @foreach($users as $user)
                 <tr>
-                    <td><img src="{{$user->profile->avatar}}" alt="{{$user->name}}" width="50px" height="50px"></td>
+                    <td><img src="{{asset($user->profile->avatar)}}" alt="{{$user->name}}" width="50px" height="50px"></td>
                     <td>{{$user->name}}</td>
                     <td>
                         <a class="btn btn-xs btn-info"
                            href="{{route('users.edit',[$user->id])}}">
-                            Edit
+                            Permissions
                         </a>
                     </td>
                     <td><a class="btn btn-xs btn-danger"
                            href="{{route('users.destroy',[$user->id])}}">
-                            Trash
+                            Delete
                         </a>
                     </td>
                 </tr>

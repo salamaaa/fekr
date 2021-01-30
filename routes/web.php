@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\TagsController;
+use App\Http\Controllers\UsersController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -76,4 +77,18 @@ Route::group(['prefix'=>'admin'],function (){
         ->name('tags.update');
     Route::get('tags/{id}/destroy',[TagsController::class,'destroy'])
         ->name('tags.destroy');
+
+    //******* admin users routes
+    Route::get('users',[UsersController::class,'index'])
+        ->name('users.index');
+    Route::get('users/create',[UsersController::class,'create'])
+        ->name('users.create');
+    Route::post('users/store',[UsersController::class,'store'])
+        ->name('users.store');
+    Route::get('users/{id}/edit',[UsersController::class,'edit'])
+        ->name('users.edit');
+    Route::post('users/{id}/update',[UsersController::class,'update'])
+        ->name('users.update');
+    Route::get('users/{id}/destroy',[UsersController::class,'destroy'])
+        ->name('users.destroy');
 });
