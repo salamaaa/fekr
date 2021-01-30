@@ -16,7 +16,7 @@ use App\Http\Controllers\TagsController;
 */
 
 Route::get('test',function (){
-   return \App\Models\Post::find(5)->category;
+   return \App\Models\Profile::find(1)->user;
 
 });
 Route::get('/', function () {

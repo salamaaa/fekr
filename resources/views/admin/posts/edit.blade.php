@@ -25,16 +25,41 @@
                 </div>
                 <div class="form-group">
                     <label for="content">Content</label>
-                    <textarea name="post_content" id="content" cols="5" rows="5" class="form-control">{{$post->content}}</textarea>
+                    <textarea name="post_content" id="content" cols="5" rows="5"
+                              class="form-control">{{$post->content}}</textarea>
                     <span style="color: red">@error('post_content') {{$message}} @enderror</span>
                 </div>
                 <div class="form-group">
                     <label for="category">Select a Category</label>
                     <select name="category_id" id="category" class="form-control">
                         @foreach($categories as $category)
-                            <option value="{{$category->id}}">{{$category->name}}</option>
+                            <option value="{{$category->id}}"
+                                    @if($post->category->id == $category->id)
+                                        selected
+                                    @endif
+                            >{{$category->name}}</option>
                         @endforeach
                     </select>
+                </div>
+
+                <label for="check">Select Tag(s)</label>
+                <div class="form-check" id="check">
+                    @foreach($tags as $tag)
+                        <input class="form-check-input" name="tags[]" type="checkbox" value="{{$tag->id}}"
+                               id="flexCheckDefault"
+
+                               @foreach($post->tags as $t)
+                               @if($tag->id == $t->id)
+                               checked
+                            @endif
+
+                            @endforeach
+                        >
+                        <label class="form-check-label" for="flexCheckDefault">
+                            {{$tag->tag}}
+                        </label>
+                        <br>
+                    @endforeach
                 </div>
 
                 <div class="form-group">

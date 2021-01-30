@@ -94,7 +94,9 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
         $categories = Category::all();
-        return view('admin.posts.edit',['post'=>$post,'categories'=>$categories]);
+        $tags = Tag::all();
+        return view('admin.posts.edit',
+            ['post'=>$post,'categories'=>$categories,'tags'=>$tags]);
     }
 
     /**
@@ -127,6 +129,7 @@ class PostsController extends Controller
         $post->slug = Str::slug($request->title,'-');
         $post->save();
 
+        $post->tags()->sync($request->tags);
         return redirect()->route('posts.index')->with('toast_success','Post Successfully Updated');
 
     }
