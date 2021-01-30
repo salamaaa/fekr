@@ -17,7 +17,7 @@
             <tbody>
             @foreach($users as $user)
                 <tr>
-                    <td><img src="{{asset($user->profile->avatar)}}" alt="{{$user->name}}" width="50px" height="50px"></td>
+                    <td><img src="{{asset('uploads/avatars/1.png')}}" alt="{{$user->name}}" width="50px" height="50px"></td>
                     <td>{{$user->name}}</td>
                     <td>
                         {{--<a class="btn btn-xs btn-info"

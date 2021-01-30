@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -14,8 +15,11 @@ class UsersController extends Controller
      */
     public function index()
     {
+
         $users = User::all();
-        return view('admin.users.index',['users'=>$users]);
+        $profiles = Profile::all();
+
+        return view('admin.users.index', ['users' => $users,'profiles'=>$profiles]);
     }
 
     /**
@@ -31,18 +35,40 @@ class UsersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => ['bail', 'required', 'max:255', 'unique:users','string'],
+            'email' => ['required', 'email', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:8',
+                'regex:/[a-z]/',
+                'regex:/[A-Z]/',
+                'regex:/[0-9]/',
+                'regex:/[@$!%*#?&]/'
+            ],
+        ]);
+        $user = User::create([
+           'name'=>$request->name,
+           'email'=>$request->email,
+           'password'=>bcrypt($request->password)
+        ]);
+
+        $profile = Profile::create([
+            'user_id'=>$user->id,
+            'avatar'=> 'uploads/avatars/1.jpg'
+        ]);
+
+
+        return redirect()->route('users.index')->with('toast_success','User successfully created');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -53,7 +79,7 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -64,8 +90,8 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -76,7 +102,7 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

@@ -9,7 +9,7 @@
             </h1>
         </div>
         <div class="panel-body">
-            <form action="/admin/users/store" method="post" enctype="multipart/form-data">
+            <form action="{{route('users.store')}}" method="post">
                 @csrf
                 <div class="form-group">
                     <label for="name"> Username </label>
@@ -25,16 +25,6 @@
                     <label for="password"> Password </label>
                     <input type="password" name="password" id="password" class="form-control">
                     <span style="color: red">@error('password') {{$message}} @enderror</span><br>
-                </div>
-                <div class="form-group">
-                    <label for="avatar">Featured Image</label>
-                    <input type="file" name="avatar" id="avatar" class="form-control">
-                    <span style="color: red">@error('avatar') {{$message}} @enderror</span><br>
-                </div>
-                <div class="form-group">
-                    <label for="about">About</label>
-                    <textarea name="about" id="about" cols="5" rows="5" class="form-control"></textarea>
-                    <span style="color: red">@error('about') {{$message}} @enderror</span>
                 </div>
                 <div class="form-group">
                     <div class="text-center">
