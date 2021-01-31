@@ -33,11 +33,13 @@
                             </a>
                         @endif
                     </td>
-                    <td><a class="btn btn-xs btn-danger"
-                        href="{{route('users.destroy',[$user->id])}}">
-                        Delete
-                        </a>
-                    </td>
+                    @if(\Illuminate\Support\Facades\Auth::id() !== $user->id)
+                        <td><a class="btn btn-xs btn-danger"
+                               href="{{route('users.destroy',[$user->id])}}">
+                                Delete
+                            </a>
+                        </td>
+                    @endif
                 </tr>
             @endforeach
             </tbody>
