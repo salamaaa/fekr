@@ -5,6 +5,7 @@ use App\Http\Controllers\PostsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -93,5 +94,8 @@ Route::group(['prefix'=>'admin'],function (){
         ->name('users.destroy');
     Route::get('users/admin/{id}',[UsersController::class,'makeAdminOrNot'])
         ->name('users.make.admin');
-
+    Route::get('user/profile',[ProfileController::class,'index'])
+        ->name('user.profile');
+    Route::post('user/profile/update',[ProfileController::class,'update'])
+        ->name('user.update.profile');
 });
