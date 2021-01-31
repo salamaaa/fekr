@@ -2,11 +2,6 @@
 
 @section('content')
 
-    @if(session('success_message'))
-        <div class="alert alert-success">
-            {{session('success_message')}}
-        </div>
-    @endif
     @if($users->count() > 0)
         <h1 class="text-gray-500 text-3xl">Users</h1>
         <table class="table table-hover">
@@ -48,6 +43,4 @@
         <h1 class="text-gray-500 text-center text-3xl">No Users</h1>
     @endif
 
-
-    @include('sweetalert::alert')
 @endsection

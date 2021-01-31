@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SettingsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -98,4 +99,11 @@ Route::group(['prefix'=>'admin'],function (){
         ->name('user.profile');
     Route::post('user/profile/update',[ProfileController::class,'update'])
         ->name('user.update.profile');
+
+    //Settings update routes
+    Route::post('settings/update',[SettingsController::class,'update'])
+        ->name('settings.update');
+    Route::get('settings',[SettingsController::class,'index'])
+        ->name('settings.index');
+
 });

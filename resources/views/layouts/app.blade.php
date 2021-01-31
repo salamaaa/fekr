@@ -23,6 +23,11 @@
     <script src="{{ mix('js/app.js') }}" defer></script>
 </head>
 <body class="font-sans antialiased">
+@if(session('success_message'))
+    <div class="alert alert-success">
+        {{session('success_message')}}
+    </div>
+@endif
 <x-jet-banner/>
 
 <div class="min-h-screen bg-gray-100">
@@ -38,13 +43,15 @@
         <div class="row">
             <div class="col-lg-4">
                 <ul class="list-group">
-
                     @if(\Illuminate\Support\Facades\Auth::user()->admin)
                         <li class="list-group-item">
                             <a href="{{route('users.index')}}">Users</a>
                         </li>
                         <li class="list-group-item">
                             <a href="{{route('users.create')}}">Create User</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{route('settings.index')}}">Settings</a>
                         </li>
                     @endif
                     <li class="list-group-item">
@@ -71,8 +78,6 @@
                     <li class="list-group-item">
                         <a href="{{route('tags.create')}}">Create Tag</a>
                     </li>
-
-
                 </ul>
             </div>
             <div class="col-lg-8">
@@ -100,5 +105,7 @@
     <script>  toastr.success('{!!\Illuminate\Support\Facades\Session::get('success')!!}'); </script>
     @endif--}}
 
+
+@include('sweetalert::alert')
 </body>
 </html>

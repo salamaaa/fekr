@@ -31,8 +31,8 @@ class PostsController extends Controller
         $categories = Category::all();
         $tags = Tag::all();
 
-        if($categories->count() == 0){
-            return redirect()->back()->with('toast_info',"You don't have any categories");
+        if($categories->count() == 0 || $tags->count() == 0){
+            return redirect()->back()->with('toast_info',"You don't have any categories or Tags");
         }
 
         return view('admin.posts.create',['categories'=>$categories,'tags'=>$tags]);
