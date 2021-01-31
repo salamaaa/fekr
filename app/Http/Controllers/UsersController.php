@@ -112,7 +112,12 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $user->profile->delete();
+        $user->delete();
+
+        return redirect()->back()
+            ->with('toast_success', 'User successfully Deleted');
     }
 
     public function makeAdminOrNot($id)

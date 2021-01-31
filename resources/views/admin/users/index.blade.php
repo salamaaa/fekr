@@ -33,10 +33,10 @@
                             </a>
                         @endif
                     </td>
-                    <td>{{--<a class="btn btn-xs btn-danger"
-                           href="{{route('users.destroy',[$user->id])}}">--}}
+                    <td><a class="btn btn-xs btn-danger"
+                        href="{{route('users.destroy',[$user->id])}}">
                         Delete
-                        {{--                        </a>--}}
+                        </a>
                     </td>
                 </tr>
             @endforeach
