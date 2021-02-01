@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\CategoriesController;
@@ -7,6 +9,7 @@ use App\Http\Controllers\TagsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\FrontendController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,12 +22,9 @@ use App\Http\Controllers\SettingsController;
 */
 
 Route::get('test',function (){
-   return \App\Models\Profile::find(1)->user;
-
+   return Category::find(3)->posts;
 });
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[FrontendController::class,'index']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
